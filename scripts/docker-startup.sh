@@ -2,6 +2,7 @@
 book_folder=book
 output_folder=book-output
 release_folder=book-output
+image_url=https://raw.githubusercontent.com/educostabra/IT-in-metaphors/master/book/
 
 # put the name of your ebook here
 book_name=it-in-metaphor-ebook
@@ -38,5 +39,15 @@ printf "Converting to PDF... (this one takes a while)\n"
 asciidoctor-pdf $params $book_name_asc 2>/dev/null >> $logs
 printf " -- PDF  output at $book_name.pdf\n"
 
-#cp -r $book_folder $release_folder
-#find ./$release_folder/$book_folder -type f -not -regex '.*[jpg|png]$' -delete
+# Deal with the images into the html page. 
+# Option #1 - It´s possible embed imagens directy in the html
+# - Reference https://asciidoctor.org/docs/convert-documents/#managing-images
+# Option #2 - Copy the images folder for the same place where the html is located
+# Option #3 - Replace the image source by the image URL
+printf "Replacing HTML source by the image URL...\n"
+sed 's+book/+'$image_url'+g' $release_folder/$book_name.html  > $release_folder/$book_name.html.tmp
+rm -f $release_folder/$book_name.html
+mv $release_folder/$book_name.html.tmp $release_folder/$book_name.html
+
+printf " Done!\n"
+ 
