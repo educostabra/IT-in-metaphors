@@ -38,5 +38,5 @@ printf "Converting to PDF... (this one takes a while)\n"
 asciidoctor-pdf $params $book_name_asc 2>/dev/null >> $logs
 printf " -- PDF  output at $book_name.pdf\n"
 
-cp -r $book_folder $release_folder
-find ./$release_folder/$book_folder -type f -not -regex '.*[jpg|png]$' -delete
+#cp -r $book_folder $release_folder
+#find ./$release_folder/$book_folder -type f -not -regex '.*[jpg|png]$' -delete
